@@ -1,0 +1,1244 @@
+﻿uvicorn : C:\Users\jason\Documents\projects\gmapkd
+ev\backend\app\services\ai_service.py:1: FutureWar
+ning: 
+所在位置 行:1 字符: 69
++ ... s\activate; uvicorn app.main:app --host 127.
+0.0.1 --port 8000 > backe ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\U 
+   sers\jason\...FutureWarning: :String) [], Rem  
+  oteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+All support for the `google.generativeai` package 
+has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google
+.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-genera
+tive-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+INFO:     Started server process [39816]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000
+ (Press CTRL+C to quit)
+INFO:     127.0.0.1:62253 - "POST /leads/search?query=test&location=Shanghai HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Yo
+u’re calling a legacy API, which is not enabled fo
+r your project. To get newer features and more fun
+ctionality, switch to the Places API (New) or Rout
+es API. Learn more: https://developers.google.com/
+maps/legacy#LegacyApiNotActivatedMapError)
+INFO:     127.0.0.1:54804 - "POST /leads/search?query=test&location=Shanghai HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Yo
+u’re calling a legacy API, which is not enabled fo
+r your project. To get newer features and more fun
+ctionality, switch to the Places API (New) or Rout
+es API. Learn more: https://developers.google.com/
+maps/legacy#LegacyApiNotActivatedMapError)
+INFO:     127.0.0.1:61947 - "GET /debug/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52760 - "GET /debug/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52760 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63875 - "POST /leads/search?query=Design+Agencies&location=London HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Yo
+u’re calling a legacy API, which is not enabled fo
+r your project. To get newer features and more fun
+ctionality, switch to the Places API (New) or Rout
+es API. Learn more: https://developers.google.com/
+maps/legacy#LegacyApiNotActivatedMapError)
+INFO:     127.0.0.1:53000 - "POST /leads/search?query=Design+Agencies&location=London HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Yo
+u’re calling a legacy API, which is not enabled fo
+r your project. To get newer features and more fun
+ctionality, switch to the Places API (New) or Rout
+es API. Learn more: https://developers.google.com/
+maps/legacy#LegacyApiNotActivatedMapError)
+INFO:     127.0.0.1:51523 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51523 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51523 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51523 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65320 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65320 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52179 - "POST /leads/search?query=Design+Agencies&location=London HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Th
+is API key is not authorized to use this service o
+r API. Please check the API restrictions settings 
+of your API key in the Google Cloud Console to ens
+ure that all of the APIs and services you need to 
+use are correctly specified in the list of enabled
+ APIs. For more information, see https://developer
+s.google.com/maps/api-key-best-practices.)
+INFO:     127.0.0.1:56541 - "POST /leads/search?query=Design+Agencies&location=London HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Th
+is API key is not authorized to use this service o
+r API. Please check the API restrictions settings 
+of your API key in the Google Cloud Console to ens
+ure that all of the APIs and services you need to 
+use are correctly specified in the list of enabled
+ APIs. For more information, see https://developer
+s.google.com/maps/api-key-best-practices.)
+INFO:     127.0.0.1:52227 - "POST /leads/search?query=Startups&location=Silicon+Valley HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Yo
+u’re calling a legacy API, which is not enabled fo
+r your project. To get newer features and more fun
+ctionality, switch to the Places API (New) or Rout
+es API. Learn more: https://developers.google.com/
+maps/legacy#LegacyApiNotActivatedMapError)
+INFO:     127.0.0.1:51556 - "POST /leads/search?query=Design+Agencies&location=London HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Th
+is API key is not authorized to use this service o
+r API. Please check the API restrictions settings 
+of your API key in the Google Cloud Console to ens
+ure that all of the APIs and services you need to 
+use are correctly specified in the list of enabled
+ APIs. For more information, see https://developer
+s.google.com/maps/api-key-best-practices.)
+INFO:     127.0.0.1:63082 - "POST /leads/search?query=Law+Firms+with+rating+%3E+4.0&location= HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\protocols\
+http\httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-retur
+ns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\uvicorn\middleware
+\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\applicatio
+ns.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\applicat
+ions.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\middlewa
+re\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, c
+onn)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\middleware
+\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 716, in __call__
+    await self.middleware_stack(scope, receive, se
+nd)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\routing.
+py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 115, in app
+    await wrap_app_handling_exceptions(app, reques
+t)(scope, receive, send)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\starlette\_excepti
+on_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\fastapi\routing.py
+", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\main.py", line 94, in search_leads
+    results = await maps_service.search_places(que
+ry, location)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\app\services\maps_service.py", line 20, i
+n search_places
+    # Simplified search logic
+          ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 445, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 259, in places
+    return _places(
+           ^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\places.
+py", line 425, in _places
+    return client._request(url, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 340, in _request
+    result = self._get_body(response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jason\Documents\projects\gmapkdev
+\backend\venv\Lib\site-packages\googlemaps\client.
+py", line 369, in _get_body
+    raise googlemaps.exceptions.ApiError(api_statu
+s,
+googlemaps.exceptions.ApiError: REQUEST_DENIED (Th
+is API key is not authorized to use this service o
+r API. Please check the API restrictions settings 
+of your API key in the Google Cloud Console to ens
+ure that all of the APIs and services you need to 
+use are correctly specified in the list of enabled
+ APIs. For more information, see https://developer
+s.google.com/maps/api-key-best-practices.)
+INFO:     127.0.0.1:50260 - "POST /leads/search?query=Law+Firms+with+rating+%3E+4.0&location= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63277 - "POST /leads/search?query=Startups&location=Silicon+Valley HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63929 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54277 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62673 - "GET /debug/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62673 - "POST /leads/search?query=Restaurants&location=Shanghai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62179 - "GET /leads HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "POST /leads/search?query=Google&location=Mountain+View HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52128 - "POST /leads/search?query=Luxury+Hotels&location=Shanghai HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62311 - "GET /leads?status=completed HTTP/1.1" 200 OK
