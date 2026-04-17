@@ -11,6 +11,8 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@googlemaps/google-maps-services-js": "^3.4.2",
+    "@libsql/client": "^0.17.2",
+    "@prisma/adapter-libsql": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "axios": "^1.15.0",
     "cheerio": "^1.2.0",
