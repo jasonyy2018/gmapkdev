@@ -1,16 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient }
 
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL || 'file:./dev.db',
-})
-
+// For Prisma 7 with SQLite, we don't need a complex adapter unless using Turso.
+// The connection URL is read from process.env.DATABASE_URL automatically 
+// because we added it back to the schema.prisma file.
 export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
-    adapter,
+    log: ['query'],
   })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
