@@ -1,12 +1,15 @@
 import { Client } from "@googlemaps/google-maps-services-js";
 
 const client = new Client({});
-const API_KEY = process.env.GOOGLE_API_KEY || "";
+const getApiKey = () => process.env.GOOGLE_API_KEY || "";
 
 export const mapsService = {
   async searchPlaces(query: string, location?: string) {
-    if (!API_KEY) {
-      console.warn("Maps Service not available - missing API key.");
+    const API_KEY = getApiKey();
+    console.log("Runtime GOOGLE_API_KEY prefix:", API_KEY ? API_KEY.substring(0, 5) + "..." : "EMPTY!");
+    
+    if (!API_KEY || API_KEY === "*") {
+      console.warn("Maps Service not available - missing or invalid API key.");
       return [];
     }
 
@@ -18,7 +21,7 @@ export const mapsService = {
       const textSearchResponse = await client.textSearch({
         params: {
           query: location ? `${query} in ${location}` : query,
-          key: API_KEY,
+          key: getApiKey(),
         },
       });
 
@@ -47,7 +50,7 @@ export const mapsService = {
         params: {
           place_id: placeId,
           fields: ["name", "website", "formatted_phone_number", "international_phone_number"],
-          key: API_KEY,
+          key: getApiKey(),
         },
       });
       return response.data.result || {};
@@ -62,7 +65,7 @@ export const mapsService = {
       const response = await client.geocode({
         params: {
           address: locationName,
-          key: API_KEY,
+          key: getApiKey(),
         },
       });
       if (response.data.results.length > 0) {
