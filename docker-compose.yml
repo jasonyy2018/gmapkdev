@@ -1,27 +1,19 @@
 version: '3.8'
 
 services:
-  backend:
+  app:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "3002:3000"
     volumes:
-      - ./backend:/app
-      - ./backend/gmapkdev.db:/app/gmapkdev.db
+      - ./prisma:/app/prisma
+      # Persistence for the SQLite database
+      - ./dev.db:/app/dev.db
     env_file:
       - .env
-    restart: always
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
     environment:
-      - VITE_API_URL=http://localhost:8000
-    depends_on:
-      - backend
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/dev.db
     restart: always

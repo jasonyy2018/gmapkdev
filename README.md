@@ -1,48 +1,42 @@
-# GMAPKDev - Smart Map Customer Development System
+# MapKDev AI (Next.js Version)
 
-Professional AI-powered lead discovery and analysis platform using Google Maps and Gemini.
+A smart lead generation tool that uses Google Maps and Gemini AI to discover businesses needing technical help.
 
-## 🚀 Quick Start (Local)
+## Tech Stack
+- **Frontend**: Next.js 16, TypeScript, Tailwind CSS, Lucide React, Framer Motion
+- **Backend**: Next.js API Routes (Serverless ready)
+- **Database**: SQLite with Prisma ORM
+- **AI**: Google Gemini Pro API (Analysis & Content Generation)
+- **Services**: Google Maps Places API
 
-1. **Configure Environment**
+## Getting Started
+
+1. **Clone and Install**
    ```bash
-   cp .env.example .env
-   # Add your GOOGLE_API_KEY to .env
+   npm install
    ```
 
-2. **Install Dependencies**
-   ```bash
-   ./install_dependencies.sh
+2. **Environment Setup**
+   Ensure your `.env` file has the following:
+   ```env
+   GOOGLE_MAPS_API_KEY=your_key
+   GEMINI_API_KEY=your_key
+   DATABASE_URL="file:./dev.db"
    ```
 
-3. **Run Application**
+3. **Database Setup**
    ```bash
-   ./run.sh
+   npx prisma migrate dev
    ```
 
-## 🐳 Running with Docker
+4. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
 
-```bash
-docker-compose up --build
-```
-
-## 🏗️ Architecture
-
-- **Backend**: FastAPI with SQLModel (SQLite).
-  - `app/api`: Modular routers for Leads and Search.
-  - `app/services`: Isolated logic for Maps, AI, and Scrapers.
-  - `app/tasks`: Background AI analysis pipeline.
-- **Frontend**: React + Vite + Tailwind CSS.
-  - `src/api`: Typed service layer with TypeScript interfaces.
-  - `src/components`: Clean, glassmorphic UI components.
-
-## 🛠️ Key Components
-- **WebScraperService**: Robust website content extraction with browser-like headers.
-- **AIService**: Deep intelligence using Gemini 1.5 Pro to find emails and tech stacks.
-- **MapsService**: Resilient Google Places integration with detailed result fetching.
-
-## 📝 Troubleshooting
-If "no data" appears:
-1. Check your `.env` for a valid `GOOGLE_API_KEY`.
-2. Ensure **Places API** and **Generative Language API** are enabled in Google Cloud Console.
-3. Verify that your API key is not restricted from accessing these specific services.
+## Key Features
+- **Map Search**: Intelligent business discovery using Google Maps API.
+- **AI Audit**: Automatic website technical audit using Gemini AI.
+- **Lead Scoring**: Smart lead prioritization based on technical debt.
+- **Marketing Automation**: AI-generated personalized outreach emails.
+- **Unified Architecture**: Consolidated frontend and backend into a single Next.js project.
