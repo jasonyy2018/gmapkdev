@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import type { Lead, LeadAnalysis } from '@prisma/client';
+
+type LeadWithAnalysis = Lead & { analysis: LeadAnalysis | null };
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
@@ -8,7 +13,7 @@ export async function GET() {
       include: { analysis: true },
     });
 
-    const formattedLeads = leads.map(lead => ({
+    const formattedLeads = leads.map((lead: LeadWithAnalysis) => ({
       ...lead,
       ai_tags: JSON.parse(lead.ai_tags || '[]'),
       analysis: lead.analysis ? {
