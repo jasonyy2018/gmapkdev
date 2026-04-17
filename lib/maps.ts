@@ -11,14 +11,6 @@ export const mapsService = {
     }
 
     try {
-      const response = await client.placesNearby({
-        params: {
-          location: location ? await this.getCoordinates(location) : undefined,
-          radius: 5000,
-          keyword: query,
-          key: API_KEY,
-        },
-      });
 
       // Alternatively, use Text Search if location is a string like "San Francisco"
       // Since the old Python code used `self.gmaps.places(query=...)`, that's a Text Search.
