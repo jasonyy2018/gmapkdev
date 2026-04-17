@@ -37,7 +37,7 @@ RUN chmod +x docker-entrypoint.sh
 # For SQLite in a container, we'll ensure the app directory is writable
 RUN chown -R nextjs:nodejs /app
 
-USER nextjs
+# USER nextjs
 
 EXPOSE 3000
 
