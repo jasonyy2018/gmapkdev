@@ -54,9 +54,9 @@ const LeadSearch: React.FC<LeadSearchProps> = ({ onSearch, isLoading }) => {
             <div className="flex gap-2 text-xs text-gray-500 justify-center">
                 <span>Recent:</span>
                 <button onClick={() => { setQuery('Design Agencies'); setLocation('London'); }} className="hover:text-gray-300">Design Agencies in London</button>
-                <span>â€?/span>
+                <span>|</span>
                 <button onClick={() => { setQuery('Startups'); setLocation('Silicon Valley'); }} className="hover:text-gray-300">Startups in Silicon Valley</button>
-                <span>â€?/span>
+                <span>|</span>
                 <button onClick={() => { setQuery('Law Firms with rating > 4.0'); setLocation(''); }} className="hover:text-gray-300">Law Firms with rating &gt; 4.0</button>
             </div>
         </div>
