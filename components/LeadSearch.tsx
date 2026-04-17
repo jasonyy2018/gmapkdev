@@ -19,7 +19,7 @@ const LeadSearch: React.FC<LeadSearchProps> = ({ onSearch, isLoading }) => {
     return (
         <div className="w-full max-w-4xl mx-auto space-y-4">
             <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-focus-within:opacity-50 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-focus-within:opacity-50 transition duration-1000"></div>
                 <div className="relative flex items-center bg-[#0a0a0a] border border-white/10 rounded-2xl p-2 pl-6">
                     <Sparkles className="w-5 h-5 text-indigo-400 mr-4" />
                     <input
@@ -44,7 +44,7 @@ const LeadSearch: React.FC<LeadSearchProps> = ({ onSearch, isLoading }) => {
                     <button
                         onClick={handleSearch}
                         disabled={isLoading || !query.trim()}
-                        className="ml-4 px-8 py-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all disabled:opacity-50 disabled:hover:shadow-none"
+                        className="ml-4 px-8 py-3 bg-linear-to-br from-indigo-500 to-purple-600 rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all disabled:opacity-50 disabled:hover:shadow-none"
                     >
                         {isLoading ? 'Searching...' : 'Search'}
                     </button>
