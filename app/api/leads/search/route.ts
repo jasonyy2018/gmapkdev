@@ -4,13 +4,26 @@ import { mapsService } from '@/lib/maps';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
+async function handleSearch(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const query = searchParams.get('query');
-  const location = searchParams.get('location');
+  let query = searchParams.get('query');
+  let location = searchParams.get('location');
+
+  if (!query && req.method === 'POST') {
+    try {
+      const body = await req.json();
+      query = body.query || query;
+      location = body.location || location;
+    } catch (e) {
+      // optional json body parse
+    }
+  }
 
   if (!query) {
-    return NextResponse.json({ error: 'Query is required' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Query is required. Example: /api/leads/search?query=Mechanical+Seals&location=Russia' },
+      { status: 400 }
+    );
   }
 
   try {
@@ -47,7 +60,16 @@ export async function POST(req: NextRequest) {
         }
         
         savedLeads.push({
-          ...lead,
+          id: lead.id,
+          companyName: lead.name,
+          name: lead.name,
+          address: lead.address,
+          website: lead.website || '',
+          phone: lead.phone || '',
+          rating: lead.rating,
+          place_id: lead.place_id,
+          search_query: query,
+          search_location: location,
           ai_tags: JSON.parse(lead.ai_tags || '[]'),
           analysis: lead.analysis ? {
             ...lead.analysis,
@@ -61,9 +83,23 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json(savedLeads);
+    return NextResponse.json({
+      success: true,
+      total: savedLeads.length,
+      query,
+      location,
+      leads: savedLeads
+    });
   } catch (error: any) {
     console.error('Error in search:', error);
     return NextResponse.json({ error: `Maps search failed: ${error.message}` }, { status: 500 });
   }
+}
+
+export async function GET(req: NextRequest) {
+  return handleSearch(req);
+}
+
+export async function POST(req: NextRequest) {
+  return handleSearch(req);
 }
