@@ -20,16 +20,15 @@ export async function POST(
       return NextResponse.json({ error: 'Lead not found' }, { status: 404 });
     }
 
-    if (!lead.website) {
-      return NextResponse.json({ error: 'Lead has no website' }, { status: 400 });
-    }
-
     await prisma.lead.update({
       where: { id: leadId },
       data: { ai_status: 'analyzing' },
     });
 
-    const content = await aiService.fetchWebsiteContent(lead.website);
+    const content = lead.website
+      ? await aiService.fetchWebsiteContent(lead.website)
+      : `No official website listed on Google Maps for ${lead.name}. Needs web presence setup.`;
+      
     const analysisResult = await aiService.analyzeWebsite(lead.name, content);
 
     if (analysisResult.error) {
@@ -45,8 +44,9 @@ export async function POST(
         ux_assessment: analysisResult.ux_assessment,
         mobile_friendly: analysisResult.mobile_friendly,
         business_insight: analysisResult.business_insight,
-        ai_confidence: analysisResult.score / 100,
+        ai_confidence: (analysisResult.score || 80) / 100,
         generated_email: generatedEmail,
+        email_subjects: JSON.stringify(analysisResult.email_subjects || []),
       },
       create: {
         lead_id: lead.id,
@@ -54,8 +54,9 @@ export async function POST(
         ux_assessment: analysisResult.ux_assessment,
         mobile_friendly: analysisResult.mobile_friendly,
         business_insight: analysisResult.business_insight,
-        ai_confidence: analysisResult.score / 100,
+        ai_confidence: (analysisResult.score || 80) / 100,
         generated_email: generatedEmail,
+        email_subjects: JSON.stringify(analysisResult.email_subjects || []),
       },
     });
 
@@ -63,10 +64,10 @@ export async function POST(
       where: { id: leadId },
       data: {
         ai_status: 'completed',
-        ai_score: analysisResult.score,
-        ai_grade: analysisResult.grade,
+        ai_score: analysisResult.score || 80,
+        ai_grade: analysisResult.grade || 'A',
         ai_tags: JSON.stringify(analysisResult.tech_stack || []),
-        contact_email: analysisResult.contact_email,
+        contact_email: lead.contact_email || analysisResult.contact_email || null,
       },
     });
 

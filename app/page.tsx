@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Layout, Search, Users, Settings, Mail, BarChart3 } from 'lucide-react';
+import { Layout, Search, Users, Settings, Mail, BarChart3, Code, Globe, Copy, Check, Terminal, Play } from 'lucide-react';
 import LeadSearch from '@/components/LeadSearch';
 import LeadDashboard from '@/components/LeadDashboard';
 import OutreachDashboard from '@/components/OutreachDashboard';
 import EmailEditorModal from '@/components/EmailEditorModal';
+import AnalyticsDashboard from '@/components/AnalyticsDashboard';
+import SettingsDashboard from '@/components/SettingsDashboard';
 import type { Lead } from '@/lib/types';
 
 export default function Home() {
@@ -13,6 +15,21 @@ export default function Home() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  
+  // API Developer Portal States
+  const [originDomain, setOriginDomain] = useState('https://your-domain.com');
+  const [apiQuery, setApiQuery] = useState('Mechanical Seals supplier');
+  const [apiLocation, setApiLocation] = useState('Russia');
+  const [apiResponse, setApiResponse] = useState<string | null>(null);
+  const [isTestingApi, setIsTestingApi] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [codeLanguage, setCodeLanguage] = useState<'curl' | 'python' | 'javascript'>('curl');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOriginDomain(window.location.origin);
+    }
+  }, []);
 
   const fetchLeads = async () => {
     try {
@@ -27,7 +44,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchLeads();
-    // Poll for updates if there are pending analyses
     const hasPending = leads.some(l => l.ai_status === 'pending' || l.ai_status === 'analyzing');
     if (hasPending) {
       const interval = setInterval(fetchLeads, 5000);
@@ -43,8 +59,8 @@ export default function Home() {
       });
       if (!response.ok) throw new Error('Search failed');
       const data = await response.json();
-      setLeads(data);
-      if (data.length === 0) {
+      setLeads(data.leads || data);
+      if ((data.leads || data).length === 0) {
         alert('No leads found for this search. Check your API key and quota.');
       } else {
         setActiveTab('leads');
@@ -57,16 +73,38 @@ export default function Home() {
     }
   };
 
+  const handleTestApi = async () => {
+    setIsTestingApi(true);
+    setApiResponse(null);
+    try {
+      const endpoint = `${originDomain}/api/leads/search?query=${encodeURIComponent(apiQuery)}&location=${encodeURIComponent(apiLocation)}`;
+      const res = await fetch(endpoint);
+      const data = await res.json();
+      setApiResponse(JSON.stringify(data, null, 2));
+    } catch (err: any) {
+      setApiResponse(JSON.stringify({ error: err.message || 'API request failed' }, null, 2));
+    } finally {
+      setIsTestingApi(false);
+    }
+  };
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
   const navItems = [
     { id: 'search', icon: Search, label: 'Search' },
     { id: 'leads', icon: Users, label: 'Leads' },
     { id: 'marketing', icon: Mail, label: 'Marketing' },
     { id: 'analytics', icon: BarChart3, label: 'Analytics' },
+    { id: 'api', icon: Code, label: 'API Developer Portal' },
     { id: 'settings', icon: Settings, label: 'Settings' },
   ];
 
   const analyzedCount = leads.filter(l => l.ai_status === 'completed').length;
-  const totalPotentialValue = analyzedCount * 1500; // Mock calculation
+  const totalPotentialValue = analyzedCount * 1500;
 
   const handleClearLeads = async () => {
     if (!confirm('Are you sure you want to clear all lead results? This cannot be undone.')) return;
@@ -81,15 +119,43 @@ export default function Home() {
     }
   };
 
+  const currentApiEndpoint = `${originDomain}/api/leads/search`;
+  const curlExample = `curl -X GET "${currentApiEndpoint}?query=${encodeURIComponent(apiQuery)}&location=${encodeURIComponent(apiLocation)}"`;
+
+  const pythonExample = `import requests
+
+url = "${currentApiEndpoint}"
+params = {
+    "query": "${apiQuery}",
+    "location": "${apiLocation}"
+}
+
+response = requests.get(url, params=params)
+data = response.json()
+print("Discovered Leads:", len(data.get("leads", [])))`;
+
+  const jsExample = `const endpoint = "${currentApiEndpoint}?query=" + encodeURIComponent("${apiQuery}") + "&location=" + encodeURIComponent("${apiLocation}");
+
+fetch(endpoint)
+  .then(res => res.json())
+  .then(data => console.log("Leads:", data.leads))
+  .catch(err => console.error(err));`;
+
+  const getCodeSnippet = () => {
+    if (codeLanguage === 'python') return pythonExample;
+    if (codeLanguage === 'javascript') return jsExample;
+    return curlExample;
+  };
+
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex">
+    <div className="min-h-screen bg-[#050505] text-white flex font-sans">
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/10 flex flex-col p-6 bg-black/40 backdrop-blur-xl shrink-0">
-        <div className="flex items-center gap-2 mb-10 px-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+        <div className="flex items-center gap-3 mb-10 px-2">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
             <Layout className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 tracking-tight">
             MapKDev AI
           </span>
         </div>
@@ -100,21 +166,19 @@ export default function Home() {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${activeTab === item.id
-                ? 'bg-white/10 text-white shadow-[0_0_20px_rgba(255,255,255,0.05)]'
-                : 'text-gray-500 hover:bg-white/5 hover:text-gray-300'
+                ? 'bg-white/10 text-white shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-white/10'
+                : 'text-gray-400 hover:bg-white/5 hover:text-gray-200'
                 }`}
             >
               <item.icon className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
+              <span className="font-medium text-sm">{item.label}</span>
             </button>
           ))}
         </nav>
 
         <div className="mt-auto p-4 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-white/10">
-          <p className="text-xs text-gray-400 mb-2">MVP Version 1.0</p>
-          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full w-2/3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" />
-          </div>
+          <p className="text-xs text-gray-400 mb-1 font-bold">API Domain Active</p>
+          <p className="text-[10px] font-mono text-indigo-400 truncate">{originDomain}</p>
         </div>
       </aside>
 
@@ -122,24 +186,17 @@ export default function Home() {
       <main className="flex-1 flex flex-col relative overflow-hidden">
         {/* Header */}
         <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-black/20 backdrop-blur-md sticky top-0 z-10">
-          <h1 className="text-2xl font-semibold capitalize">{activeTab} Dashboard</h1>
+          <h1 className="text-2xl font-bold capitalize tracking-tight">
+            {activeTab === 'api' ? 'API 开发者中心 & 接口部署' : 
+             activeTab === 'analytics' ? 'Analytics Business Intelligence' :
+             activeTab === 'settings' ? 'System Settings & Control Center' :
+             `${activeTab} Dashboard`}
+          </h1>
           <div className="flex items-center gap-4">
-            {(activeTab === 'leads' || activeTab === 'marketing') && leads.length > 0 && (
-              <button
-                onClick={handleClearLeads}
-                className="px-4 py-2 bg-rose-500/10 border border-rose-500/20 text-rose-500 rounded-full font-medium text-sm hover:bg-rose-500/20 transition-all flex items-center gap-2"
-              >
-                Clear Results
-              </button>
-            )}
-            <div className="flex -space-x-2">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-black bg-gray-800" />
-              ))}
+            <div className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+              <Globe className="w-3.5 h-3.5" />
+              <span>当前部署: {originDomain}</span>
             </div>
-            <button className="px-4 py-2 bg-white text-black rounded-full font-medium text-sm hover:bg-gray-200 transition-colors">
-              New Project
-            </button>
           </div>
         </header>
 
@@ -148,11 +205,11 @@ export default function Home() {
           {activeTab === 'search' && (
             <div className="space-y-12 py-10">
               <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">
-                  Find Your Next Big Client
+                <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40 tracking-tight">
+                  Find Your Next High-Value Client
                 </h2>
-                <p className="text-gray-500 max-w-2xl mx-auto">
-                  Use AI to discover businesses with outdated websites, poor SEO, or technical debt directly from Google Maps.
+                <p className="text-gray-400 max-w-2xl mx-auto text-sm leading-relaxed">
+                  Discover businesses with outdated websites, tech debt, or non-responsive designs directly from Google Maps and generate AI outreach instantly.
                 </p>
               </div>
 
@@ -160,16 +217,16 @@ export default function Home() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <p className="text-gray-400 text-sm mb-1">Total Leads</p>
-                  <h3 className="text-2xl font-bold">{leads.length}</h3>
+                  <p className="text-gray-400 text-xs uppercase font-bold tracking-widest mb-1">Total Discovered Leads</p>
+                  <h3 className="text-3xl font-extrabold text-white">{leads.length}</h3>
                 </div>
                 <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <p className="text-gray-400 text-sm mb-1">AI Analyzed</p>
-                  <h3 className="text-2xl font-bold">{analyzedCount}</h3>
+                  <p className="text-gray-400 text-xs uppercase font-bold tracking-widest mb-1">AI Audited Leads</p>
+                  <h3 className="text-3xl font-extrabold text-white">{analyzedCount}</h3>
                 </div>
                 <div className="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <p className="text-gray-400 text-sm mb-1">Potential Value</p>
-                  <h3 className="text-2xl font-bold text-emerald-400">${totalPotentialValue.toLocaleString()}</h3>
+                  <p className="text-gray-400 text-xs uppercase font-bold tracking-widest mb-1">Est. Revenue Pipeline</p>
+                  <h3 className="text-3xl font-extrabold text-emerald-400">${totalPotentialValue.toLocaleString()}</h3>
                 </div>
               </div>
             </div>
@@ -179,8 +236,8 @@ export default function Home() {
             <div className="space-y-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-semibold">Discovery Results</h2>
-                  <p className="text-gray-500 text-sm">Leads discovered from your latest searches</p>
+                  <h2 className="text-2xl font-bold tracking-tight">Discovered Business Leads</h2>
+                  <p className="text-gray-400 text-sm">Leads discovered from Google Maps with AI technical audits</p>
                 </div>
               </div>
               <LeadDashboard
@@ -200,9 +257,130 @@ export default function Home() {
           )}
 
           {activeTab === 'analytics' && (
-            <div className="flex-1 flex flex-col items-center justify-center min-h-[400px]">
-              <BarChart3 className="w-12 h-12 text-gray-700 mb-4" />
-              <p className="text-gray-500">Advanced analytics coming soon...</p>
+            <AnalyticsDashboard leads={leads} />
+          )}
+
+          {activeTab === 'settings' && (
+            <SettingsDashboard 
+              onClearLeads={handleClearLeads} 
+              onRefreshLeads={fetchLeads} 
+            />
+          )}
+
+          {/* API Developer Portal Tab */}
+          {activeTab === 'api' && (
+            <div className="space-y-6 max-w-5xl animate-fadeIn">
+              <div className="p-8 rounded-3xl bg-gradient-to-r from-indigo-950/60 to-purple-950/40 border border-indigo-500/20 space-y-3 shadow-2xl">
+                <div className="flex items-center space-x-3">
+                  <Code className="w-7 h-7 text-indigo-400" />
+                  <h2 className="text-2xl font-bold text-white">Google Maps & Gemini AI REST API SDK</h2>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  系统会自动动态识别您部署的域名（例如 <code className="text-indigo-300 font-mono">{originDomain}</code>）。任何外部系统（如 Queeny 外贸 AI 工作流或其他第三方程序）均可通过该 API 直接调用全网抓取与 AI 提取服务。
+                </p>
+              </div>
+
+              {/* Endpoint Details Card */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-gray-200 flex items-center space-x-2">
+                    <Globe className="w-4 h-4 text-emerald-400" />
+                    <span>动态 API Base Endpoint</span>
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-mono border border-emerald-500/30">
+                    HTTP GET / POST Enabled
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-black/60 border border-white/10 font-mono text-xs text-indigo-300">
+                  <span className="truncate">{currentApiEndpoint}</span>
+                  <button
+                    onClick={() => handleCopy(currentApiEndpoint)}
+                    className="ml-3 text-gray-400 hover:text-white flex items-center space-x-1 shrink-0"
+                  >
+                    {copiedCode ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Interactive API Tester */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-6">
+                <h3 className="text-sm font-bold text-white flex items-center space-x-2">
+                  <Terminal className="w-4 h-4 text-indigo-400" />
+                  <span>在线 API 模拟测试与 SDK 代码生成</span>
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div className="space-y-1">
+                    <label className="block text-gray-400 font-bold uppercase text-[10px]">Query (搜索关键词)</label>
+                    <input
+                      type="text"
+                      value={apiQuery}
+                      onChange={(e) => setApiQuery(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-gray-400 font-bold uppercase text-[10px]">Location (目标地区/国家)</label>
+                    <input
+                      type="text"
+                      value={apiLocation}
+                      onChange={(e) => setApiLocation(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Multi-language Code Generator */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-400 uppercase font-bold">API 调用代码示例 (自动匹配部署域名)</span>
+                    <div className="flex bg-black/60 p-1 rounded-xl border border-white/10 text-xs font-mono">
+                      {(['curl', 'python', 'javascript'] as const).map((lang) => (
+                        <button
+                          key={lang}
+                          onClick={() => setCodeLanguage(lang)}
+                          className={`px-3 py-1 rounded-lg uppercase font-bold transition-all ${
+                            codeLanguage === lang ? 'bg-indigo-500 text-white' : 'text-gray-400 hover:text-white'
+                          }`}
+                        >
+                          {lang}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-black/80 border border-white/10 text-xs font-mono text-indigo-300 relative group">
+                    <pre className="overflow-x-auto whitespace-pre-wrap">{getCodeSnippet()}</pre>
+                    <button
+                      onClick={() => handleCopy(getCodeSnippet())}
+                      className="absolute top-3 right-3 text-gray-400 hover:text-white p-2 rounded-lg bg-white/5 border border-white/10"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleTestApi}
+                  disabled={isTestingApi}
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-xs hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center space-x-2 transition-all shadow-lg"
+                >
+                  <Play className={`w-4 h-4 ${isTestingApi ? 'animate-spin' : ''}`} />
+                  <span>{isTestingApi ? '发送请求中...' : '测试发送 API 请求'}</span>
+                </button>
+
+                {/* Response Preview JSON */}
+                {apiResponse && (
+                  <div className="space-y-1 pt-2">
+                    <label className="text-[11px] text-gray-400 uppercase font-semibold">API Response JSON Output</label>
+                    <pre className="p-4 rounded-xl bg-black/90 border border-white/10 text-xs font-mono text-emerald-400 overflow-x-auto max-h-64">
+                      {apiResponse}
+                    </pre>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
